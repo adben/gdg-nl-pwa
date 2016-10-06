@@ -5,6 +5,7 @@
 <dom-module id="note-app">
   <template>
     <style include="note-app-shared-styles"></style>
+
     <firebase-auth
         id="auth"
         app-name="notes"
@@ -12,44 +13,32 @@
         signed-in="{{signedIn}}"
         user="{{user}}">
     </firebase-auth>
+
     <na-toolbar
         signed-in="[[signedIn]]"
         on-sign-out="signOut">
     </na-toolbar>
+
     <na-login
         on-sign-in="signIn"
         signed-in="[[signedIn]]"
         disabled="[[!online]]">
     </na-login>
-    <paper-fab
-        icon="add"
-        on-tap="create"
-        disabled="[[!online]]"
-        aria-label="Add note">
-    </paper-fab>
-    <na-editor
-        id="editor"
-        note="{{editableNote}}"
-        on-close="commitChange">
-    </na-editor>
-    <firebase-document
-        id="document"
-        app-name="notes"
-        path="[[editableNoteId]]"
-        data="{{editableNote}}">
-    </firebase-document>
+
     <firebase-query
         id="query"
         app-name="notes"
         path="/notes/[[user.uid]]"
         data="{{notes}}">
     </firebase-query>
+
     <app-indexeddb-mirror
         session="[[user.uid]]"
         key="notes"
         data="{{notes}}"
         persisted-data="{{persistedNotes}}">
     </app-indexeddb-mirror>
+
     <div class="notes">
       <template is="dom-repeat" items="[[persistedNotes]]" as="note">
         <na-note
@@ -60,6 +49,27 @@
         </na-note>
       </template>
     </div>
+
+    <paper-fab
+        icon="add"
+        on-tap="create"
+        disabled="[[!online]]"
+        aria-label="Add note">
+    </paper-fab>
+
+    <firebase-document
+        id="document"
+        app-name="notes"
+        path="[[editableNoteId]]"
+        data="{{editableNote}}">
+    </firebase-document>
+
+    <na-editor
+        id="editor"
+        note="{{editableNote}}"
+        on-close="commitChange">
+    </na-editor>
+
   </template>
   <script>
     Polymer( {
