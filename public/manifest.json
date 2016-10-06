@@ -6,6 +6,7 @@
   "orientation": "any",
   "theme_color": "#9C27B0",
   "background_color": "#9C27B0",
+
   "icons": [
     {
       "src": "bower_components/note-app/common/images/icon-0-75x.png",
