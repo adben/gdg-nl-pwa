@@ -4,7 +4,11 @@
 
 <dom-module id="note-app">
   <template>
-    <style include="note-app-shared-styles"></style>
+    <style include="note-app-shared-styles">
+      .overlay {
+        z-index: 9999;
+      }
+    </style>
 
     <firebase-auth
         id="auth"
@@ -50,12 +54,14 @@
       </template>
     </div>
 
-    <paper-fab
-        icon="add"
-        on-tap="create"
-        disabled="[[!online]]"
-        aria-label="Add note">
-    </paper-fab>
+    <div class="overlay">
+      <paper-fab class="above"
+                 icon="add"
+                 on-tap="create"
+                 disabled="[[!online]]"
+                 aria-label="Add note">
+      </paper-fab>
+    </div>
 
     <firebase-document
         id="document"
